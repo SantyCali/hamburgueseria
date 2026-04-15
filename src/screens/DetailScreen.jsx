@@ -10,11 +10,12 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCart } from "../context/CartContext";
 import { burgers } from "../data/burgers";
 
 export default function DetailScreen({ route, navigation }) {
+  const insets = useSafeAreaInsets();
   const initialBurger = route.params?.burger ?? burgers[0];
   const [selectedBurger, setSelectedBurger] = useState(initialBurger);
   const [qty, setQty] = useState(1);
@@ -106,7 +107,10 @@ export default function DetailScreen({ route, navigation }) {
       <View style={styles.glowOrange} />
 
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: Math.max(18, insets.top + 8) },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.topBar}>
