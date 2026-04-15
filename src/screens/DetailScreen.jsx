@@ -10,10 +10,12 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCart } from "../context/CartContext";
 import { burgers } from "../data/burgers";
 
 export default function DetailScreen({ route, navigation }) {
+  const insets = useSafeAreaInsets();
   const initialBurger = route.params?.burger ?? burgers[0];
   const [selectedBurger, setSelectedBurger] = useState(initialBurger);
   const [qty, setQty] = useState(1);
@@ -100,12 +102,17 @@ export default function DetailScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["left", "right"]}>
       <View style={styles.glowGreen} />
       <View style={styles.glowOrange} />
 
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingTop: Math.max(18, insets.top + 10),
+          },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.topBar}>
@@ -242,7 +249,7 @@ export default function DetailScreen({ route, navigation }) {
           <Text style={styles.addBtnText}>Agregar al carrito</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
