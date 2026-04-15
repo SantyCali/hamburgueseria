@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useCart } from "../context/CartContext";
 import { burgers } from "../data/burgers";
 
@@ -100,7 +101,7 @@ export default function DetailScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       <View style={styles.glowGreen} />
       <View style={styles.glowOrange} />
 
@@ -242,7 +243,7 @@ export default function DetailScreen({ route, navigation }) {
           <Text style={styles.addBtnText}>Agregar al carrito</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

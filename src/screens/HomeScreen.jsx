@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import CategoryChip from "../components/CategoryChip";
@@ -19,7 +20,7 @@ export default function HomeScreen({ navigation }) {
   }, [search]);
 
   return (
-    <View style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.glowOne} />
         <View style={styles.glowTwo} />
@@ -50,7 +51,7 @@ export default function HomeScreen({ navigation }) {
       </ScrollView>
 
       <SideMenu visible={menuOpen} onClose={() => setMenuOpen(false)} />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 20,
-    paddingTop: 18,
+    paddingTop: 12,
     paddingBottom: 28,
   },
   glowOne: {
