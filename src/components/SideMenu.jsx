@@ -12,16 +12,25 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default function SideMenu({ visible, onClose }) {
   const slideAnim = useRef(new Animated.Value(-SCREEN_WIDTH)).current;
+  const [shouldRender, setShouldRender] = React.useState(visible);
 
   useEffect(() => {
+    if (visible) {
+      setShouldRender(true);
+    }
+
     Animated.timing(slideAnim, {
       toValue: visible ? 0 : -SCREEN_WIDTH,
       duration: 250,
       useNativeDriver: true,
-    }).start();
+    }).start(({ finished }) => {
+      if (finished && !visible) {
+        setShouldRender(false);
+      }
+    });
   }, [visible]);
 
-  if (!visible) return null;
+  if (!shouldRender) return null;
 
   return (
     <View style={styles.overlay}>
